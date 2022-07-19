@@ -38,8 +38,15 @@ namespace TDDMicroExercises.TelemetrySystem
 
             while (this._connection.OnlineStatus == false && retryLeft > 0)
             {
-                this._connection.Connect(DiagnosticChannelConnectionString);
-                retryLeft -= 1;
+                try
+                {
+                    this._connection.Connect(DiagnosticChannelConnectionString);
+                    retryLeft -= 1;
+                }
+                catch(Exception ex)
+                {
+                    throw ex;
+                }
             }
 
             if (this._connection.OnlineStatus == false)

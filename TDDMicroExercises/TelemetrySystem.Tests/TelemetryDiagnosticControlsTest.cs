@@ -9,13 +9,21 @@ namespace TDDMicroExercises.TelemetrySystem.Tests
         public void It_should_checkTransmission_send_a_diagnostic_message_and_receive_a_status_message_response()
         {
             //Arrange
-            var telemetryDiagnostic = new TelemetryDiagnosticControls();
+            var connection = new ConnectionStub();
+            connection.setConnectionStubStatus(true);
+
+            var mockTelemetryDataChannel = new DiagnosticMock();
+            mockTelemetryDataChannel.SetExpectedCallToSend(DiagnosticMessages.DefaultMessage);
+            mockTelemetryDataChannel.SetExpectedCallToReceive("status report");
+
+            var target = new TelemetryDiagnosticControls(connection, mockTelemetryDataChannel);
 
             //Act
-            telemetryDiagnostic.CheckTransmission();
+            target.CheckTransmission();
 
             //Assert
-            Assert.Equal(DiagnosticMessages.DefaultMessage, telemetryDiagnostic.DiagnosticInfo);
+            mockTelemetryDataChannel.Verify();
+            Assert.Equal("status report", target.DiagnosticInfo);
         }
     }
 }
