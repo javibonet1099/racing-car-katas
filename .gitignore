@@ -1,12 +1,12 @@
 bin/
 obj/
 _ReSharper*/
-CSharp/.vs/
-CSharp/packages/
+.vs/
+packages/
 
 # NCrunch
-CSharp/_NCrunch_*
-CSharp/.*crunch*.local.xml
+_NCrunch_*
+.*crunch*.local.xml
 
 *.suo
 *.user
